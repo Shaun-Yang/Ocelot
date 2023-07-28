@@ -1,21 +1,41 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/todos/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 443
-        }
-      ],
-      "UpstreamPathTemplate": "/posts/{id}",
-      "UpstreamHttpMethod": [
-        "Get"
-      ]
+      "DownstreamPathTemplate": "/api/value/getvalue",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/test_service1/api/value/getvalue",
+      "UpstreamHttpMethod": [ "Post" ],
+      "ServiceName": "test_service",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/value/getvalue",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/test_service2/api/value/getvalue",
+      "UpstreamHttpMethod": [ "Post" ],
+      "ServiceName": "test_service",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
     }
   ],
+  "Aggregates": [],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5000"
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "PollConsul",
+      "PollingInterval": 10000
+    },
+    "DownstreamScheme": "http",
+    "LoadBalancerOptions": {
+      "Type": "LeastConnection"
+    },
+    "AuthenticationOptions": {
+      "AuthenticationProviderKey": "Bearer",
+      "AllowedScopes": []
+    }
   }
 }

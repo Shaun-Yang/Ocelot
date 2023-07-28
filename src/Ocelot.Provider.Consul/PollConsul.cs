@@ -22,7 +22,9 @@ public sealed class PollConsul : IServiceDiscoveryProvider, IDisposable
         _consulServiceDiscoveryProvider = consulServiceDiscoveryProvider;
         _services = new List<Service>();
 
-        _timer = new Timer(async x =>
+        Poll().Wait();
+
+        _timer = new Timer(async x=>
         {
             if (_polling)
             {

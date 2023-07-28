@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using Microsoft.IdentityModel.Logging;
 
 namespace Ocelot.Samples.OcelotBasic.ApiGateway;
 
@@ -11,6 +12,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        IdentityModelEventSource.ShowPII = true;
         new WebHostBuilder()
            .UseKestrel()
            .UseContentRoot(Directory.GetCurrentDirectory())
