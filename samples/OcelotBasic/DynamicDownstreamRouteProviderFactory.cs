@@ -1,8 +1,12 @@
-﻿using Ocelot.Configuration;
+﻿using System;
+using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Ocelot.Configuration;
 using Ocelot.DownstreamRouteFinder.Finder;
 using Ocelot.Logging;
 
-namespace Application.Gateway;
+namespace Ocelot.Samples.OcelotBasic.ApiGateway;
 
 public class DynamicDownstreamRouteProviderFactory : IDownstreamRouteProviderFactory
 {
@@ -22,7 +26,7 @@ public class DynamicDownstreamRouteProviderFactory : IDownstreamRouteProviderFac
 
         _dynamicDownstreamRouteWithAuthCreator = providers[nameof(DynamicDownstreamRouteWithAuthCreator)];
         _downstreamRouteCreator = providers[nameof(DownstreamRouteCreator)];
-        _downstreamRouteFinder = providers[nameof(DownstreamRouteFinder)];
+        _downstreamRouteFinder = providers[nameof(DownstreamRouteFinder.Finder.DownstreamRouteFinder)];
     }
 
     public IDownstreamRouteProvider Get(IInternalConfiguration config)
